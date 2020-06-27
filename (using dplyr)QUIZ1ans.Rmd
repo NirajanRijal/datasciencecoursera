@@ -1,0 +1,53 @@
+# I tried to solve coursera Quiz 1 answer using dplyr package
+## Question 1
+R was developed by statisticians working at
+##Ans: The University of Auckland
+--------------------------------------------------------
+## Question 4
+If I execute the expression x <- 4 in R, what is the class of the object 'x' as determined by the `class()' function?
+##Ans: Numeric
+Code:
+```R
+> x<-4
+> x
+[1] 4
+> class(x)
+```
+--------------------------------------------------------
+## Question 5
+What is the class of the object defined by x <- c(4, TRUE)?
+##Ans: Numeric
+Code:
+```R
+x <- c(4, TRUE)
+> class(x)
+```
+## Question 6
+If I have two vectors x <- c(1,3, 5) and y <- c(3, 2, 10), what is produced by the expression cbind(x, y)?
+## Ans:  x  y
+[1,] 1  3
+[2,] 3  2
+[3,] 5 10
+Code:
+```R
+x <- c(1,3, 5)
+y <- c(3, 2, 10)
+cbind(x, y)
+```
+## Question 8
+Suppose I have a list defined as x <- list(2, "a", "b", TRUE). What does x[[1]] give me?
+## Ans: [1] "a"
+Code:
+```R
+x <- list(2, "a", "b", TRUE)
+x[[1]]
+```
+## Question 9
+Suppose I have a vector x <- 1:4 and a vector y <- 2. What is produced by the expression x + y?
+##Ans: 3 4 5 6
+Code:
+```R
+x <- 1:4
+y <- 2
+x + y
+```
