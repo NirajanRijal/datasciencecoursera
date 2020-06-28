@@ -25,7 +25,8 @@ x <- c(4, TRUE)
 ---------------------------------------------------------
 ## Question 6
 If I have two vectors x <- c(1,3, 5) and y <- c(3, 2, 10), what is produced by the expression cbind(x, y)?
-## Ans:  x  y
+## Ans: 
+x  y
 [1,] 1  3
 [2,] 3  2
 [3,] 5 10
@@ -68,5 +69,139 @@ x
 ## Question (11-20) Using dplyr
 11. In the dataset provided for this Quiz, what are the column names of the dataset?
 Code:
-
+First of all, i load tidyverse package. and used read_csv to read csv file 'hw', which was in directory.
+```R
+library(tidyverse)
+read_csv("hw.csv", col_types = cols(
++   Ozone = col_double(),
++   Solar.R = col_double(),
++   Wind = col_double(),
++   Temp = col_double(),
++   Month = col_double(),
++   Day = col_double()))
+```
+## Ans: We will get this output, where we can see column names
+# A tibble: 153 x 6
+   Ozone Solar.R  Wind  Temp Month   Day
+   <dbl>   <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1    41     190   7.4    67     5     1
+ 2    36     118   8      72     5     2
+ 3    12     149  12.6    74     5     3
+ 4    18     313  11.5    62     5     4
+ 5    NA      NA  14.3    56     5     5
+ 6    28      NA  14.9    66     5     6
+ 7    23     299   8.6    65     5     7
+ 8    19      99  13.8    59     5     8
+ 9     8      19  20.1    61     5     9
+10    NA     194   8.6    69     5    10
+# ... with 143 more rows
+               OR
+While reading data(using read_csv), we can store that value in new variable for later use, and we can find colnames with this code too:
+Code:
+```R
+ colnames(hw)
+```
+Here i created new variable hw
+--------------------------------------------------------------------------
+## Question 12 
+Extract the first 2 rows of the data frame and print them to the console. What does the output look like?
+## Ans: 
+  Ozone Solar.R  Wind  Temp Month   Day
+  <dbl>   <dbl> <dbl> <dbl> <dbl> <dbl>
+1    41     190   7.4    67     5     1
+2    36     118   8      72     5     2
+Code:
+```R
+ hw%>%slice_head(n=2)
+```
+-------------------------------------------------------------------------------
+## Question 13
+How many observations (i.e. rows) are in this data frame?
+## Ans: 153
+Code:
+```R
+nrow(hw)
+```
+-------------------------------------------------------------------------------    
+## Question 14
+Extract the last 2 rows of the data frame and print them to the console. What does the output look like?
+## Ans: 
+A tibble: 2 x 6
+  Ozone Solar.R  Wind  Temp Month   Day
+  <dbl>   <dbl> <dbl> <dbl> <dbl> <dbl>
+1    18     131   8      76     9    29
+2    20     223  11.5    68     9    30
+Code:
+```R
+hw%>%slice_tail(n=2)
+```
+--------------------------------------------------------------------------------
+## Question 15
+What is the value of Ozone in the 47th row?
+Ans: In this type of question, we have to think first, here we need 47th row only at first, so may be 'slicing' will work & after that 'selecting' ozone value, lets try
+ A tibble: 1 x 1
+  Ozone
+  <dbl>
+1    21
+Code:
+```R
+hw%>%slice(47)%>%select(Ozone)
+```
+----------------------------------------------------------------------------------
+## Question 16
+How many missing values are in the Ozone column of this data frame?
+## Ans: 37
+Code:
+```R
+hw%>%summarize(count=sum(is.na(Ozone)))
+```
+count is not any function, that is just name given to column by user(me)
+  
+    OR
+Make new variable by selecting only ozone column first
+``` R
+hw1%>%summarize(count=sum(is.na(Ozone)))
+```
+----------------------------------------------------------------------------------
+## Question 17
+What is the mean of the Ozone column in this dataset? Exclude missing values (coded as NA) from this calculation.
+## Ans: 42.1
+Code:
+```R
+hw1%>%summarize(mean=mean(Ozone, na.rm=TRUE))
+```
+Here, mean is name given by user (You can see two mean in code, one is just column name)
+-------------------------------------------------------------------------------------
+## Question 18
+Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90. What is the mean of Solar.R in this subset?
+## Ans: 213
+Code:
+```R
+hw%>%filter(Ozone > 31, Temp >90)%>%summarize(mean=mean(Solar.R))
+```
+      OR
+We can use na.rm=TRUE, but we will get same answer
+-------------------------------------------------------------------------------------
+## Question 19
+What is the mean of "Temp" when "Month" is equal to 6?
+## Ans: 79.1
+Code:
+```R
+hw%>%select(Temp,Month)%>%filter(Month==6)%>%summarize(temp_mean=mean(Temp,na.rm=T))
+```
+--------------------------------------------------------------------------------------
+## Question 20
+What was the maximum ozone value in the month of May (i.e. Month = 5)?
+## Ans: 
+A tibble: 1 x 2
+  Ozone Month
+  <dbl> <dbl>
+1   115     5
+Code:
+```R
+hw%>%select(Ozone,Month)%>%filter(Month==5)%>%slice_max(Ozone)
+```
+--------------------------------------------------------------------------------------
+                              THANK YOU
+    
 
